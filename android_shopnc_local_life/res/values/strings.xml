@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">本地生活</string>
+    <string name="app_version">1.0</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="main_index_search_txt">首页</string>
+    <string name="main_index_category_txt">分类</string>
+    <string name="main_index_market_txt">购物车</string>
+    <string name="main_index_my_txt">个人</string>
+    <string name="main_index_more_txt">更多</string>
+    <string name="main_index_topic_txt">活动</string>
+    <string name="no_data">没有找到符合条件的数据</string>
+    
+    <string name="order_tab_dingdan_text">订单</string>
+    <string name="order_tab_youhuiquan_text">优惠券</string>
+    <string name="order_tab_huiyuanka_text">会员卡</string>
+    
+    <string name="order_tab_dingdan_shiyong_text">未支付</string>
+    <string name="order_tab_dingdan_weishiyong_text">已支付</string>
+    <string name="order_tab_dingdan_yiguoqi_text">已消费</string>
+    
+    <string name="my_01">订单</string>
+    <string name="my_02">优惠券</string>
+     <string name="my_03">会员卡</string>
+
+</resources>
