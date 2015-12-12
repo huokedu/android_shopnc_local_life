@@ -47,54 +47,11 @@
     </RelativeLayout>
 
     <com.shopnc_local_life.android.widget.ExpandTabView
-        android:id="@+id/expandtab_view"
+        android:id="@+id/expandtab_view_tuan"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:visibility="gone"
-        android:text="@string/hello_world" />
+        />
    
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal" >
-
-        <Button
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="#EAEAEA"
-            android:drawableRight="@drawable/ic_arrow_down_black"
-            android:padding="10dip"
-            android:text="全部地区" />
-
-        <View
-            android:layout_width="1dip"
-            android:layout_height="fill_parent"
-            android:background="@drawable/sub_seperate_line_v_dropdown" />
-
-        <Button
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="#EAEAEA"
-            android:drawableRight="@drawable/ic_arrow_down_black"
-            android:padding="10dip"
-            android:text="全部分类" />
-
-        <View
-            android:layout_width="1dip"
-            android:layout_height="fill_parent"
-            android:background="@drawable/sub_seperate_line_v_dropdown" />
-
-        <Button
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="#EAEAEA"
-            android:drawableRight="@drawable/ic_arrow_down_black"
-            android:padding="10dip"
-            android:text="默认排序" />
-    </LinearLayout>
    
 
     <com.shopnc_local_life.android.widget.PullView

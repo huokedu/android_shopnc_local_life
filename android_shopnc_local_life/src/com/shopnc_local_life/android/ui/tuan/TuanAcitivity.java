@@ -37,7 +37,9 @@ import com.shopnc_local_life.android.modle.TuanList;
 import com.shopnc_local_life.android.widget.ExpandTabView;
 import com.shopnc_local_life.android.widget.PullView;
 import com.shopnc_local_life.android.widget.PullView.OnRefreshListener;
+import com.shopnc_local_life.android.widget.ViewLeft;
 import com.shopnc_local_life.android.widget.ViewMiddle;
+import com.shopnc_local_life.android.widget.ViewRight;
 
 /**
  * Author:hjgang Create On 2013-8-6上午11:51:20 Site:http://weibo.com/hjgang or
@@ -51,8 +53,8 @@ public class TuanAcitivity extends Activity implements OnScrollListener {
 	private ArrayList<View> mViewArray = new ArrayList<View>();
 	private ArrayList<String> mTextArray = new ArrayList<String>();
 	private ViewMiddle viewMiddle;
-	private ViewMiddle view_l;
-	private ViewMiddle view_r;
+	private ViewLeft viewLeft;
+	private ViewRight viewRight;
 	// private MyProcessDialog dialog;
 	private MyApp myApp;
 	private int pageno = 1;
@@ -69,7 +71,7 @@ public class TuanAcitivity extends Activity implements OnScrollListener {
 		setContentView(R.layout.tab_tuan);
 		// dialog =new MyProcessDialog(TuanAcitivity.this);
 		myApp = (MyApp) TuanAcitivity.this.getApplication();
-		btn_back_id =(ImageButton) findViewById(R.id.btn_back_id);
+		btn_back_id = (ImageButton) findViewById(R.id.btn_back_id);
 		listview = (PullView) findViewById(R.id.listview);
 		moreView = getLayoutInflater().inflate(R.layout.list_more_load, null);
 		adapter = new TuanListViewAdapter(TuanAcitivity.this);
@@ -79,34 +81,43 @@ public class TuanAcitivity extends Activity implements OnScrollListener {
 		listview.setOnScrollListener(this); // 设置listview的滚动事件
 		ListViewInFo(pageno = 1);
 
-		expandTabView = (ExpandTabView) findViewById(R.id.expandtab_view);
-		viewMiddle = new ViewMiddle(this);
-		view_l = new ViewMiddle(this);
-		view_r = new ViewMiddle(this);
+//		expandTabView = (ExpandTabView) findViewById(R.id.expandtab_view);
+//		viewMiddle = new ViewMiddle(this);
+//		viewLeft = new ViewLeft(this);
+//		viewRight = new ViewRight(this);
 
-		mViewArray.add(viewMiddle);
-		mViewArray.add(view_l);
-		mViewArray.add(view_r);
-		mTextArray.add("全部地区");
-		mTextArray.add("全部分类");
-		mTextArray.add("默认排序");
-		expandTabView.setValue(mTextArray, mViewArray);
-		expandTabView.setTitle(viewMiddle.getShowText(), 0);
-		
-		btn_back_id.setOnClickListener(new OnClickListener() {
+//		mViewArray.add(viewMiddle);
+//		mViewArray.add(viewLeft);
+//		mViewArray.add(viewRight);
+//		mTextArray.add("全部地区");
+//		mTextArray.add("全部分类");
+//		mTextArray.add("默认排序");
+//		expandTabView.setValue(mTextArray, mViewArray);
+//		expandTabView.setTitle(viewMiddle.getShowText(), 0);
+
+		initView();
+	    initVaule();
+		initListener();
+
+		viewLeft.setOnSelectListener(new ViewLeft.OnSelectListener() {
+
 			@Override
-			public void onClick(View v) {
-				TuanAcitivity.this.finish();
+			public void getValue(String distance, String showText) {
+				onRefresh(viewLeft, showText);
+			}
+		});
+		viewRight.setOnSelectListener(new ViewRight.OnSelectListener() {
+
+			@Override
+			public void getValue(String distance, String showText) {
+				onRefresh(viewRight, showText);
 			}
 		});
 
 		viewMiddle.setOnSelectListener(new ViewMiddle.OnSelectListener() {
-			
 			@Override
 			public void getValue(String showText) {
-				//System.out.println("qqq");
 				onRefresh(viewMiddle, showText);
-
 			}
 		});
 		listview.setonRefreshListener(new OnRefreshListener() {
@@ -125,9 +136,69 @@ public class TuanAcitivity extends Activity implements OnScrollListener {
 						TuanDetailsActivity.class);
 				intent.putExtra("group_id", tuanlist.getGroup_id() + "");
 				TuanAcitivity.this.startActivity(intent);
-
 			}
 		});
+	}
+
+	 private void initView() {
+	
+	 expandTabView = (ExpandTabView) findViewById(R.id.expandtab_view_tuan);
+	 viewLeft = new ViewLeft(this);
+	 viewMiddle = new ViewMiddle(this);
+	 viewRight = new ViewRight(this);
+	
+	 }
+	
+	 private void initVaule() {
+	
+	 mViewArray.add(viewLeft);
+	 mViewArray.add(viewMiddle);
+	 mViewArray.add(viewRight);
+	 ArrayList<String> mTextArray = new ArrayList<String>();
+	 mTextArray.add("距离");
+	 mTextArray.add("区域");
+	 mTextArray.add("距离");
+	 expandTabView.setValue(mTextArray, mViewArray);
+	 // expandTabView.setTitle(viewLeft.getShowText(), 0);
+	 // expandTabView.setTitle(viewMiddle.getShowText(), 1);
+	 // expandTabView.setTitle(viewRight.getShowText(), 2);
+	
+	 }
+	
+	private void initListener() {
+		btn_back_id.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				TuanAcitivity.this.finish();
+			}
+		});
+		//
+		// viewLeft.setOnSelectListener(new ViewLeft.OnSelectListener() {
+		//
+		// @Override
+		// public void getValue(String distance, String showText) {
+		// onRefresh(viewLeft, showText);
+		// }
+		// });
+		//
+		// viewMiddle.setOnSelectListener(new ViewMiddle.OnSelectListener() {
+		//
+		// @Override
+		// public void getValue(String showText) {
+		//
+		// onRefresh(viewMiddle, showText);
+		//
+		// }
+		// });
+		//
+		// viewRight.setOnSelectListener(new ViewRight.OnSelectListener() {
+		//
+		// @Override
+		// public void getValue(String distance, String showText) {
+		// onRefresh(viewRight, showText);
+		// }
+		// });
+		//
 	}
 
 	@Override
@@ -149,10 +220,8 @@ public class TuanAcitivity extends Activity implements OnScrollListener {
 	}
 
 	public void ListViewInFo(int pangeno) {
-		// dialog.show();
 		if (myApp.getCity_id() == null || myApp.getCity_id().equals("0")
 				|| myApp.getCity_id().equals("")) {
-			// dialog.dismiss();
 			Toast.makeText(TuanAcitivity.this, "城市没有获取到，请稍后重试",
 					Toast.LENGTH_SHORT).show();
 			listview.removeFooterView(moreView);
@@ -166,7 +235,6 @@ public class TuanAcitivity extends Activity implements OnScrollListener {
 		RemoteDataHandler.asyncGet(url, new Callback() {
 			@Override
 			public void dataLoaded(ResponseData data) {
-				// dialog.dismiss();
 				listview.onRefreshComplete();
 				if (data.getCode() == HttpStatus.SC_OK) {
 					String json = data.getJson();
@@ -222,7 +290,6 @@ public class TuanAcitivity extends Activity implements OnScrollListener {
 				mHandler.sendEmptyMessage(0);
 			}
 		}
-
 	}
 
 	// 声明Handler
@@ -233,7 +300,6 @@ public class TuanAcitivity extends Activity implements OnScrollListener {
 				pageno = pageno + 1;
 				ListViewInFo(pageno); // 加载更多数据，这里可以使用异步加载
 				adapter.notifyDataSetChanged();
-
 				break;
 			case 1:
 				break;
@@ -244,7 +310,6 @@ public class TuanAcitivity extends Activity implements OnScrollListener {
 	};
 
 	private void onRefresh(View view, String showText) {
-
 		expandTabView.onPressBack();
 		int position = getPositon(view);
 		if (position >= 0 && !expandTabView.getTitle(position).equals(showText)) {
@@ -264,11 +329,17 @@ public class TuanAcitivity extends Activity implements OnScrollListener {
 	}
 
 	@Override
+	public void onBackPressed() {
+		if (!expandTabView.onPressBack()) {
+			finish();
+		}
+	}
+
+	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
 			if (!expandTabView.onPressBack()) {
 				finish();
-
 			}
 			return true;
 		} else {

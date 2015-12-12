@@ -64,14 +64,14 @@ public class ViewMiddle extends LinearLayout implements ViewBaseAction {
 	}
 
 	private void init(Context context) {
-		
+
 		LayoutInflater inflater = (LayoutInflater) context
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		inflater.inflate(R.layout.view_region, this, true);
 		regionListView = (ListView) findViewById(R.id.listView);
 		plateListView = (ListView) findViewById(R.id.listView2);
-		// setBackgroundDrawable(getResources().getDrawable(
-		// R.drawable.ticket_bg_thirty_chart));
+		setBackgroundDrawable(getResources().getDrawable(
+				R.drawable.choosearea_bg_mid));
 
 		for (int i = 0; i < 10; i++) {
 			groups.add("测试" + i);
